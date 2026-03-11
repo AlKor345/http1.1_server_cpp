@@ -59,11 +59,12 @@ int main() {
     if (sigaction(SIGCHLD, &sa, nullptr) == -1)
         throw std::system_error(errno, std::generic_category(), "sigaction");
 
-    if (set_context(ctx) == -1) {
+    if (set_context(&ctx, "server.crt", "server.key") == -1) {
         std::cerr << errno << " ssl_ctx\n";
     } else {
         ssl_ready = true;
     }
+    signal(SIGPIPE, SIG_IGN);
 
     std::cout << "server: waiting for connections...\n";
 
@@ -155,7 +156,7 @@ int main() {
                     goto send_response;
                 }
 
-                proxy_to_backend(new_socket.get(), request, response, ctx);
+                proxy_to_backend(new_socket, request, response, ctx);
 
                 send_response:
                 std::string str_response = build_resp(response);

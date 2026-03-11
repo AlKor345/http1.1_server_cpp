@@ -1,8 +1,0 @@
-[
-{
-  "directory": "D:/server/build",
-  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/myapp.dir/includes_CXX.rsp -g -std=c++17 -o CMakeFiles\\myapp.dir\\src\\server.cpp.obj -c D:\\server\\src\\server.cpp",
-  "file": "D:/server/src/server.cpp",
-  "output": "CMakeFiles/myapp.dir/src/server.cpp.obj"
-}
-]

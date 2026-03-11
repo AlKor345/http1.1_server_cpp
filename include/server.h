@@ -1,25 +1,11 @@
 #ifndef SERVER
 #define SERVER
-
-#include "type.h"
-#include "parsing.h"
-#include "proxy_to_backend.h"
-#include "ssl.h"
 #include "building.h"
+#include "parsing.h"
+#include "ssl.h"
+#include "type.h"
+#include "proxy_to_backend.h"
 
-const std::unordered_map<int, std::string> HTTP_STATUS_PHRASES = {
-    {100, "Continue"}, {101, "Switching Protocols"}, {102, "Processing"}, {103, "Early Hints"},
-    {200, "OK"}, {201, "Created"}, {202, "Accepted"}, {203, "Non-Authoritative Information"},
-    {204, "No Content"}, {205, "Reset Content"}, {206, "Partial Content"},
-    {300, "Multiple Choices"}, {301, "Moved Permanently"}, {302, "Found"},
-    {303, "See Other"}, {304, "Not Modified"}, {307, "Temporary Redirect"}, {308, "Permanent Redirect"},
-    {400, "Bad Request"}, {401, "Unauthorized"}, {403, "Forbidden"}, {404, "Not Found"},
-    {405, "Method Not Allowed"}, {408, "Request Timeout"}, {409, "Conflict"}, {410, "Gone"},
-    {413, "Payload Too Large"}, {418, "I'm a teapot"}, {422, "Unprocessable Entity"},
-    {429, "Too Many Requests"},
-    {500, "Internal Server Error"}, {501, "Not Implemented"}, {502, "Bad Gateway"},
-    {503, "Service Unavailable"}, {504, "Gateway Timeout"}, {505, "HTTP Version Not Supported"}
-};
 constexpr size_t MAX_REQUEST_SIZE = 10 * 1024 * 1024;
 constexpr const char* PORT     = "3490";
 constexpr int         BACKLOG  = 10;
@@ -109,7 +95,7 @@ void read_long_req(std::string& raw, int fd, SSL* ssl, bool use_ssl) {
     size_t header_end = raw.find("\r\n\r\n");
     if (header_end == std::string::npos) return;
 
-    size_t body_start     = header_end + 4;
+    size_t body_start = header_end + 4;
     size_t content_length = 0;
 
     auto cl_pos = raw.find("Content-Length: ");

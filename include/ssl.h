@@ -1,8 +1,7 @@
 
-#ifndef SSL
-#define SSL
+#ifndef SSL_H
+#define SSL_H
 #include "type.h"
-std::vector<SSL*> ssl_connections;
 
 ssize_t set_context(SSL_CTX** ctx, const char* cert_file, const char* prv_file) {
     SSL_load_error_strings();

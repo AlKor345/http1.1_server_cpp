@@ -1,3 +1,1 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\myapp.dir/objects.a
-C:\msys64\ucrt64\bin\ar.exe qc CMakeFiles\myapp.dir/objects.a @CMakeFiles\myapp.dir\objects1.rsp
-C:\msys64\ucrt64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\myapp.dir/objects.a -Wl,--no-whole-archive -o myapp.exe -Wl,--out-implib,libmyapp.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\myapp.dir\linkLibs.rsp
+/usr/sbin/c++ -g -Wl,--dependency-file=CMakeFiles/myapp.dir/link.d CMakeFiles/myapp.dir/src/server.cpp.o -o myapp  /usr/lib/libssl.so /usr/lib/libcrypto.so

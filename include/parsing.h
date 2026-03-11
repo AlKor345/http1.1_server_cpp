@@ -2,7 +2,7 @@
 #ifndef PARSING
 #define PARSING
 #include "type.h"
-
+void read_chuncked(const std::string &body, Request &req);
 Request request_parse(const char* buffer, ssize_t bytes_read, const std::string& client_ip) {
     Request http_request;
     std::string str_buf(buffer, bytes_read);
@@ -32,7 +32,8 @@ Request request_parse(const char* buffer, ssize_t bytes_read, const std::string&
     if (header_end != std::string::npos) {
         auto it = http_request.headers.find("Transfer-Encoding");
         if (it != http_request.headers.end() && it->second == "chunked") {
-            read_chuncked(str_buf.substr(header_end), http_request);
+            std::string body_part = str_buf.substr(header_end);
+            read_chuncked(body_part, http_request);
         } else {
             http_request.body = str_buf.substr(header_end + 4);
         }
@@ -40,7 +41,7 @@ Request request_parse(const char* buffer, ssize_t bytes_read, const std::string&
     return http_request;
 }
 
-void read_chuncked(std::string &body, Request &req){
+void read_chuncked(const std::string &body, Request &req){
     ssize_t read_body_count = 0;
     std::ostringstream body_read;
     ssize_t start = 0;

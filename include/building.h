@@ -23,8 +23,8 @@ std::string build_resp(Response& response) {
         chunk_header << std::hex << body_len << "\r\n";
         resp_stream << "\r\n" << chunk_header.str() << response.body << "\r\n0\r\n\r\n";
     } else {
-        if (response.headers.count("Content-Length") == 0)
-            resp_stream << "Content-Length: " << response.body.size() << "\r\n";
+        // if (response.headers.count("Content-Length") == 0)
+        //     resp_stream << "Content-Length: " << response.body.size() << "\r\n";
         resp_stream << "\r\n" << response.body;
     }
     return resp_stream.str();
@@ -39,11 +39,11 @@ std::string build_req(const Request& request, Response& response) {
         response.body        = "HTTP/1.1 requests must include the 'Host:' header.\r\n";
         return "";
     }
-    if (host_it->second != "127.0.0.1") {
-        response.status_code = 400;
-        response.body        = "False host address\r\n";
-        return "";
-    }
+    // if (host_it->second != "127.0.0.1") {
+    //     response.status_code = 400;
+    //     response.body        = "False host address\r\n";
+    //     return "";
+    // }
 
     req_stream << request.method << " " << request.url << " " << request.version << "\r\n";
     for (const auto& header : request.headers)
